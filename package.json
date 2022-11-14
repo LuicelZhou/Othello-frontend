@@ -1,14 +1,13 @@
 {
-  "name": "reversi",
+  "name": "othello",
   "version": "0.1.0",
-  "private": true,
-  "homepage": "http://lucielzhou.github.io/othello-frontend",
+  "private": false,
+  "homepage": "./",
   "dependencies": {
     "bootstrap": "^4.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.1.1",
-    "rescript": "^10.0.1"
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -21,7 +20,19 @@
     "res:start": "rescript build -w"
   },
   "devDependencies": {
-    "gh-pages": "^1.2.0",
+    "gh-pages": "^4.0.0",
     "react-router-dom": "^6.4.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

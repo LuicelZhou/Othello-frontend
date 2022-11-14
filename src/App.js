@@ -12,7 +12,7 @@ class App extends Component {
 
     return (
       <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/play" element={<Play />} />

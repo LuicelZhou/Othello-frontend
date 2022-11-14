@@ -39,11 +39,14 @@ class Game extends Component {
             <div className="Game container">
                     <h3 className="Game--title" style={{color:'black'}}>{this.state.currentPlayer}'s turn</h3>
                     {this.lostTurn()}  
-                <div className="row">
-                    <Score player="white" score={this.score('white')}/>
-                    <Board board={this.state.board} newest={this.state.newestDisk} reverse={this.reverse.bind(this)} player={this.state.currentPlayer}/>
-                    <Score player="black" score={this.score('black')}/>                
+                <div className="header">
+                    <Score player="black" score={this.score('black')}/>  
+                    <Score player="white" score={this.score('white')}/>              
                 </div> 
+                <div className="center">
+                <Board board={this.state.board} newest={this.state.newestDisk} reverse={this.reverse.bind(this)} player={this.state.currentPlayer}/>
+                    
+                </div>
             </div>);
         }
         

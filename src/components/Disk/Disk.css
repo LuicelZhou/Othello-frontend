@@ -18,6 +18,6 @@
     border:2px solid yellow;
 }
 .Cell--allowed .Disk {
-    border: 1.5px solid #ffffff;
+    border: 1px solid #ffffff;
     cursor:pointer !important;
 }

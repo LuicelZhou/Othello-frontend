@@ -6,8 +6,19 @@
     text-transform:capitalize;
 }
 
-.Game .row {
+/* put score on the top row, and board down */
+.Game .header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-right: 140px;
+    margin-left: 100px;
+}
+.Game .center{
     display: flex;
     justify-content: center;
     align-items: center;
+
+
 }

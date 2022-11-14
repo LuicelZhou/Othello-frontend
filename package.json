@@ -2,7 +2,7 @@
   "name": "othello",
   "version": "0.1.0",
   "private": false,
-  "homepage": "./",
+  "homepage": "https://lucielzhou.github.io/Othello-frontend",
   "dependencies": {
     "bootstrap": "^4.0.0",
     "react": "^16.2.0",

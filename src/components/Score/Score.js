@@ -7,8 +7,7 @@ class Score extends Component {
         return (
             <div className={`Score Score--${this.props.player}`}>
                 <span>
-                <h4>{this.props.player}</h4>
-                    {this.props.score}
+                    x&nbsp;{this.props.score}
                 </span>            
             </div>
         )

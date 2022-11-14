@@ -1,0 +1,13 @@
+rescript = 1
+rule astj
+  command = /Users/zyy/Documents/react-reversi-master/node_modules/rescript/darwinarm64/bsc.exe  -bs-v 10.0.1  -absname -bs-ast -o $out $i
+o src/App.ast : astj ../../src/App.res
+rule deps
+  command = /Users/zyy/Documents/react-reversi-master/node_modules/rescript/darwinarm64/bsb_helper.exe -hash 3222f42abd73215b0bf5b80a2900245f $in
+  restat = 1
+o src/App.d : deps src/App.ast
+rule mij
+  command = /Users/zyy/Documents/react-reversi-master/node_modules/rescript/darwinarm64/bsc.exe -I src/components/GameOver -I src/components/Board -I src/components/Game -I src/components/Cell -I src/components/Score -I src/components/Disk -I src/components -I src   -bs-package-name reversi -bs-package-output es6:$in_d:.bs.js $i
+  dyndep = 1
+  restat = 1
+o src/App.cmj src/App.cmi ../../src/App.bs.js : mij src/App.ast

@@ -1,0 +1,13 @@
+.Dashboard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #ccc; */
+    background-image: url(board.png);
+    height: 800px;
+    font-family: Verdana;
+}
+.Stroke {
+    -webkit-text-stroke: 1px rgb(0, 0, 0);
+}

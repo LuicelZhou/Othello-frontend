@@ -25,13 +25,21 @@ class Play extends Component {
     black={this.state.blackScore}
     />:'';  
 
+    function refreshPage() {
+      window.location.reload(false);
+    }
+
     return (
       <div className="Play">
+        <br/>
        <h1 style={{ color: 'black' }} >
       Welcome to Othello! </h1>
 
       {game}
       {gameOver}
+      {/* restart game button */}
+      <button type='button' className="btn btn-primary" onClick={refreshPage}>Restart</button>
+
       </div>
     );
   }

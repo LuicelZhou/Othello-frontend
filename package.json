@@ -2,7 +2,7 @@
   "name": "reversi",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://matfish2.github.io/react-reversi",
+  "homepage": "http://lucielzhou.github.io/othello-frontend",
   "dependencies": {
     "bootstrap": "^4.0.0",
     "react": "^16.2.0",
@@ -21,7 +21,7 @@
     "res:start": "rescript build -w"
   },
   "devDependencies": {
-    "gh-pages": "^1.1.0",
+    "gh-pages": "^1.2.0",
     "react-router-dom": "^6.4.3"
   }
 }

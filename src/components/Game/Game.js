@@ -122,7 +122,7 @@ class Game extends Component {
             return board;
         }
         
-        /** set initial disks black: black at 4,4;5,5; white at 4,5; 5,4; */
+        /** set initial disks black: white at 4,4;5,5; white at 4,5; 5,4; */
         initialDisk(x, y) {
             if ((x===4 && y===4) || (x===5 && y===5)) return 'white';
             if ((x===4 && y===5) || (x===5 && y===4)) return 'black';

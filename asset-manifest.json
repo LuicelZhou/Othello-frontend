@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/othello/static/css/main.003c2e1e.css",
-    "main.js": "/othello/static/js/main.b86722e8.js",
-    "static/media/board.png": "/othello/static/media/board.379537f1c4a8d56543e7.png",
-    "index.html": "/othello/index.html",
-    "main.003c2e1e.css.map": "/othello/static/css/main.003c2e1e.css.map",
-    "main.b86722e8.js.map": "/othello/static/js/main.b86722e8.js.map"
+    "main.css": "/Othello-frontend/static/css/main.afd95200.css",
+    "main.js": "/Othello-frontend/static/js/main.b86722e8.js",
+    "static/media/board.png": "/Othello-frontend/static/media/board.379537f1c4a8d56543e7.png",
+    "index.html": "/Othello-frontend/index.html",
+    "main.afd95200.css.map": "/Othello-frontend/static/css/main.afd95200.css.map",
+    "main.b86722e8.js.map": "/Othello-frontend/static/js/main.b86722e8.js.map"
   },
   "entrypoints": [
-    "static/css/main.003c2e1e.css",
+    "static/css/main.afd95200.css",
     "static/js/main.b86722e8.js"
   ]
 }

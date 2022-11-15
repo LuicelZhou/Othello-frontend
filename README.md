@@ -1,7 +1,7 @@
 # Description
 A JavaScript and React implemenation for Othello game. 
 
-UI is  implemented by Semantic UI(https://react.semantic-ui.com/)
+Website UI is implemented by [Semantic UI](https://react.semantic-ui.com/)
 
 Inspired by https://github.com/matfish2/react-reversi
 

@@ -36,7 +36,7 @@ Othello_frontend
     ├── Game
     ├── GameOver
     ├── Play
-    ├── RUles
+    ├── Rules
     └── Settings
   ├── App.css
   ├── App.js

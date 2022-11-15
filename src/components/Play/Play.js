@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import Game from '../Game/Game';
 import GameOver from '../GameOver/GameOver';
 import './Play.css';
@@ -25,9 +26,9 @@ class Play extends Component {
     black={this.state.blackScore}
     />:'';  
 
-    function refreshPage() {
-      window.location.reload(false);
-    }
+    // function refreshPage() {
+    //   window.location.reload(false);
+    // }
 
     return (
       <div className="Play">
@@ -37,8 +38,12 @@ class Play extends Component {
 
       {game}
       {gameOver}
+      {/* Back to dashboard button */}
+      <Link to="/">
+      <button type='button' className="btn btn-primary">Back to Dashboard</button>
+      </Link>
       {/* restart game button */}
-      <button type='button' className="btn btn-primary" onClick={refreshPage}>Restart</button>
+      {/* <button type='button' className="btn btn-primary" onClick={refreshPage}>Restart</button> */}
 
       </div>
     );

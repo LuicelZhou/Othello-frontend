@@ -1,5 +1,7 @@
 # Description
-A JavaScript and React implemenation for Othello game.
+A JavaScript and React implemenation for Othello game. 
+
+UI is  implemented by Semantic UI(https://react.semantic-ui.com/)
 
 Inspired by https://github.com/matfish2/react-reversi
 
@@ -27,6 +29,7 @@ Othello_frontend
 ├── package.json
 ├── README.md
 ├── public
+  ├── images
 └── src
   ├── components
     ├── Board

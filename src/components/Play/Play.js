@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import 'semantic-ui-css/semantic.min.css'
+import {
+  Container,
+  Menu,
+} from 'semantic-ui-react'
 import Game from '../Game/Game';
 import GameOver from '../GameOver/GameOver';
-import './Play.css';
 
 class Play extends Component {
 
@@ -31,20 +35,34 @@ class Play extends Component {
     // }
 
     return (
-      <div className="Play">
-        <br/>
-       <h1 style={{ color: 'black' }} >
-      Welcome to Othello! </h1>
+     <div>
+      <Menu fixed='top' inverted>
+        <Container>
+          <Menu.Item header>
+            Othello Game
+          </Menu.Item>
+          <Link to="/">
+          <Menu.Item as='a'>Back Home</Menu.Item>
+          </Link>
+        </Container>
+      </Menu>
+      <Container style={{ marginTop: '4em' }}>
+       <h1 style={{ color: 'black' , fontSize:'30px'}}  >
+        Welcome to Othello! </h1>
 
       {game}
       {gameOver}
+      <br/>
       {/* Back to dashboard button */}
-      <Link to="/">
-      <button type='button' className="btn btn-primary">Back to Dashboard</button>
-      </Link>
+      {/* <Link to="/">
+        <Button primary size='large'>
+        Back to Dashboard
+        </Button>
+      </Link> */}
+      </Container>
       {/* restart game button */}
       {/* <button type='button' className="btn btn-primary" onClick={refreshPage}>Restart</button> */}
-
+       <br/>
       </div>
     );
   }

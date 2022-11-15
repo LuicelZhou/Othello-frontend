@@ -6,12 +6,14 @@ import Rules from './components/Rules/Rules';
 import Settings from './components/Settings/Settings';
 import './App.css';
 
+
 class App extends Component {
   
   render() {
 
     return (
       <div className="App">
+
       <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<Dashboard />} />

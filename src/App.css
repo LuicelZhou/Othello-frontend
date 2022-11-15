@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background:#ccc;
+  background:rgb(255, 255, 255);
   min-width: 800px;
-  min-height: 900px;
+  min-height: 700px;
 }

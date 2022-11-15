@@ -3,5 +3,31 @@
     background:#ccc;
     min-width: 800px;
     min-height: 800px;
+    padding: 20px;
+    align-items: center;
+    
   }
+.Rules header{
+    background: #000;
+    color: #fff;
+    padding: 20px;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+
+  }
+.Rules p{
+    padding: 20px;
+    font-size: 18px;
+    text-align: left;
+    margin-left: 150px;
+    margin-right: 150px;
   
+  }
+.Rules image{
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    align-items: center;
+  
+}

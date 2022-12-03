@@ -43,7 +43,7 @@ const HomepageHeading = () => (
       }}
     />
     <br/>
-    <Link to="/play">
+    <Link to="/game">
     <Button primary size='huge'>
       Let's Play
       <Icon name='right arrow' />
@@ -89,9 +89,9 @@ class DesktopContainer extends Component {
                 <Link to="/rules">
                 <Menu.Item as='a'>Rules</Menu.Item>
                 </Link>
-                <Link to="/settings">
+                {/* <Link to="/settings">
                 <Menu.Item as='a'>Settings</Menu.Item>
-                </Link>
+                </Link> */}
               </Container>
             </Menu>
             <HomepageHeading style={{marginBottom:'10px'}} />

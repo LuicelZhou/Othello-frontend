@@ -4,6 +4,7 @@ import 'semantic-ui-css/semantic.min.css'
 import {
   Container,
   Menu,
+  Header
 } from 'semantic-ui-react'
 import Game from '../Game/Game';
 import GameOver from '../GameOver/GameOver';
@@ -21,18 +22,16 @@ class Play extends Component {
   }
   
   render() {
-        
     let game = this.state.status==='active'?<Game end={this.endGame.bind(this)}/>:''; 
+    // let game = this.state.status==='active'?<Game end={this.endGame.bind(this)} gameId={this.props.gameId}/>:''; 
     let gameOver = this.state.status==='over'?<GameOver 
     winner={this.state.winner} 
     restart={this.restartGame.bind(this)}
     white={this.state.whiteScore}    
     black={this.state.blackScore}
     />:'';  
-
-    // function refreshPage() {
-    //   window.location.reload(false);
-    // }
+    let agent = this.props.type;
+    console.log(this.props.gameId);
 
     return (
      <div>
@@ -47,22 +46,13 @@ class Play extends Component {
         </Container>
       </Menu>
       <Container style={{ marginTop: '4em' }}>
-       <h1 style={{ color: 'black' , fontSize:'30px'}}  >
-        Welcome to Othello! </h1>
 
       {game}
       {gameOver}
-      <br/>
-      {/* Back to dashboard button */}
-      {/* <Link to="/">
-        <Button primary size='large'>
-        Back to Dashboard
-        </Button>
-      </Link> */}
       </Container>
-      {/* restart game button */}
-      {/* <button type='button' className="btn btn-primary" onClick={refreshPage}>Restart</button> */}
-       <br/>
+       <Header as='h1' style={{fontSize: '25px',marginTop:'2em',marginBottom:'1em'}}> 
+       Difficulty level: {agent}
+       </Header>
       </div>
     );
   }

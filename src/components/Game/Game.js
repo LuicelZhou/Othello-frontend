@@ -21,10 +21,12 @@ class Game extends Component {
         
         this.state = {
             board: this.createBoard(),
+            // updateBoard: this.createBoard(),
             currentPlayer:'black',
             winner:null,
             lostTurn: false,
-            newestDisk:null
+            newestDisk:null,
+            // status: "ongoing"
         }
         
     }
@@ -44,6 +46,7 @@ class Game extends Component {
                     <Score player="white" score={this.score('white')}/>              
                 </div> 
                 <div className="center">
+                {/* bind reverse function to Board */}
                 <Board board={this.state.board} newest={this.state.newestDisk} reverse={this.reverse.bind(this)} player={this.state.currentPlayer}/>
                     
                 </div>
@@ -128,6 +131,102 @@ class Game extends Component {
             if ((x===4 && y===5) || (x===5 && y===4)) return 'black';
             return null;
         }
+
+        // api operations
+
+        // sendMove(x,y) {
+        //     // send move to server
+        //     // PUT /game/:id
+        //     // request body: JSON striing {"y": 1, "x": 2}
+        //     // api: http://localhost:8080/game/:gameid put
+        //     // response: 200 OK
+        //     // only send when player moves - in Cell.js -> Onclick
+            
+        //     fetch( '/game/' + this.props.gameId, {
+        //         method: 'PUT',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({x:x, y:y})
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         console.log('Success:', data);
+        //         this.handleChange(data);
+        //     })
+        //     .catch((error) => {
+        //         // console.error('Error:', error);
+        //         window.alert("Error: " + error);
+        //     }
+        //     );
+
+        // }
+
+        // handleChange(data) {
+        //     // update the board
+        //     console.log("board in read: " + data.board);
+            
+        //     let new_board = data.board;
+
+        //     // update board
+        //     // eg. json board: [[' ','-','b'],['-','w','-'],['-','-','-']]
+        //     for (let i = 0; i < new_board.length; i++) {
+        //         for (let j = 0; j < new_board.length; j++) {
+        //             if (new_board[i][j] === 'b') {
+        //                 new_board[i][j] = {
+        //                     disk: 'black'
+        //                 }
+        //             } else if (new_board[i][j] === 'w') {
+        //                 new_board[i][j] = {
+        //                     disk: 'white'
+        //                 }
+        //             } else {
+        //                 new_board[i][j] = {
+        //                     disk: null
+        //                 }
+        //             }
+        //         }
+        // }   
+
+    //     this.setState({
+    //         updateBoard: new_board,
+    //         currentPlayer: data.is_black_turn ? 'black' : 'white',
+    //         status: data.status
+
+    //     });
+    // }
+
+
+    //     updateBoard(x,y) {
+            
+    //         this.sendMove(x,y);
+
+    //         console.log("new board: " + this.state.updateBoard);
+
+    //         var new_board = this.state.updateBoard;
+
+    //         // update board
+    //         // eg. json board: [[' ','-','b'],['-','w','-'],['-','-','-']]
+    //         for (let i = 0; i < new_board.length; i++) {
+    //             for (let j = 0; j < new_board.length; j++) {
+    //                 if (new_board[i][j] === 'b') {
+    //                     new_board[i][j] = {
+    //                         disk: 'black'
+    //                     }
+    //                 } else if (new_board[j][i] === 'w') {
+    //                     new_board[i][j] = {
+    //                         disk: 'white'
+    //                     }
+    //                 } else {
+    //                     new_board[i][j] = {
+    //                         disk: null
+    //                     }
+    //                 }
+    //             }
+    //         return new_board;
+    //     }
+    // }
+
         
         canReverse(x, y) {
             
@@ -174,7 +273,14 @@ class Game extends Component {
         }
         
         reverse(x, y) { 
-            
+
+            // do all the updates here (in original code logic)
+
+            // send move to server and update board
+
+            // this.sendMove(x,y);
+            // var b = this.state.updateBoard;
+            // TODO: cannot update board yetm only can read user click and send to server
             var b = this.state.board;
             
             if (!b[x][y].canReverse || !b[x][y].canReverse.length) return;

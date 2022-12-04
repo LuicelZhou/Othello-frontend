@@ -22,7 +22,7 @@ class Play extends Component {
   }
   
   render() {
-    let game = this.state.status==='active'?<Game end={this.endGame.bind(this)}/>:''; 
+    let game = this.state.status==='active'?<Game end={this.endGame.bind(this)} gameId={this.props.gameId}/>:''; 
     // let game = this.state.status==='active'?<Game end={this.endGame.bind(this)} gameId={this.props.gameId}/>:''; 
     let gameOver = this.state.status==='over'?<GameOver 
     winner={this.state.winner} 

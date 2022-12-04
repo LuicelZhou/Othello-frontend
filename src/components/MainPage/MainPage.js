@@ -21,26 +21,32 @@ class MainPage extends Component {
         super(props);
         
         this.state = {
-            agent: 'simple',
+            // agent: 'simple',
             open: false,
             secondOpen: false,
             // random gameid
-            gameId: Math.floor(Math.random() * 1000000)
+            // gameId: Math.floor(Math.random() * 1000000)
+            gameId: 102
         }
         
     }
-    // assign game id when the game is created
+
     componentDidMount() {
         this.initialGame();
       }
 
     // initial a game using POST
-    //  POST /game/:id, body: null
+    //  POST /game/:id, body: {"message": "random"}
     // api: http://localhost:8080/game/1
 
     initialGame() {
+
         fetch('/game/'+ this.state.gameId, {
-            method: 'POST'
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "message": "greedy" })
         })
         .then(res => res.text())
         .then((data) => {
@@ -51,7 +57,6 @@ class MainPage extends Component {
 
 
     render() {
-        console.log(this.state.agent);
         
         return (
             <div>

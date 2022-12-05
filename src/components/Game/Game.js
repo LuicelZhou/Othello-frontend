@@ -34,7 +34,7 @@ class Game extends Component {
     }
 
     componentDidUpdate(_, prevState) {
-        if (prevState.board !== this.state.board && this.state.updateBoardByServer === true) {
+        if (prevState.board !== this.state.board) {
             // check if the game is over
             var allowedCellsCount = this.calculateAllowedCells();
 
@@ -253,11 +253,7 @@ class Game extends Component {
                 do {
                     X+= dir[0];
                     Y+= dir[1];
-                cells.push({X,Y});    
                     cells.push({X,Y});    
-                cells.push({X,Y});    
-                    cells.push({X,Y});    
-                cells.push({X,Y});    
                     distance++;
                 } while (this.inBoard(X,Y) && this.hasOpponentsColor(X,Y));
                 

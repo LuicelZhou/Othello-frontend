@@ -21,12 +21,10 @@ class Game extends Component {
         
         this.state = {
             board: this.createBoard(),
-            // updateBoard: this.createBoard(),
             currentPlayer:'black',
             winner:null,
             lostTurn: false,
             newestDisk:null,
-            // status: "ongoing"
         }
         
     }
@@ -34,6 +32,21 @@ class Game extends Component {
     componentDidMount() {
         this.calculateAllowedCells();
     }
+
+    componentDidUpdate(_, prevState) {
+        if (prevState.board !== this.state.board && this.state.updateBoardByServer === true) {
+            // check if the game is over
+            var allowedCellsCount = this.calculateAllowedCells();
+
+            if (!allowedCellsCount) { // PLAYER HAS NO MOVE,GAME OVER
+                this.props.end(this.winner(), this.score('white'), this.score('black'));
+            }
+        }
+
+    }
+
+
+    
     
     render() {
                 
@@ -48,7 +61,6 @@ class Game extends Component {
                 <div className="center">
                 {/* bind reverse function to Board */}
                 <Board board={this.state.board} newest={this.state.newestDisk} reverse={this.reverse.bind(this)} player={this.state.currentPlayer}/>
-                    
                 </div>
             </div>);
         }
@@ -134,33 +146,38 @@ class Game extends Component {
 
         // api operations
 
-        // sendMove(x,y) {
-        //     // send move to server
-        //     // PUT /game/:id
-        //     // request body: JSON striing {"y": 1, "x": 2}
-        //     // api: http://localhost:8080/game/:gameid put
-        //     // response: 200 OK
-        //     // only send when player moves - in Cell.js -> Onclick
-            
-        //     fetch( '/game/' + this.props.gameId, {
-        //         method: 'PUT',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({x:x, y:y})
-        //     })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log('Success:', data);
-        //         this.handleChange(data);
-        //     })
-        //     .catch((error) => {
-        //         // console.error('Error:', error);
-        //         window.alert("Error: " + error);
-        //     }
-        //     );
+        sendMove(x,y) {
+            // send move to server
+            // PUT /game/:id
+            // request body: JSON striing {"y": 1, "x": 2}
+            // api: http://localhost:8080/game/:gameid put
+            // response: 200 OK
+            // only send when player moves - in Cell.js -> Onclick
+            console.log("executing sendMove");
+            fetch( '/game/' + this.props.gameId, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({x:y, y:x})
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Request failed!');
+            })
+            .then(data => {
+                // console.log(data.board);
+                this.setState({ board: this.updateBoard(data.board), updateBoardByServer: true });;
+            })
+            .catch((error) => {
+                // console.error('Error:', error);
+                window.alert("Error: " + error);
+            }
+            );
 
-        // }
+        }
 
         // handleChange(data) {
         //     // update the board
@@ -197,35 +214,24 @@ class Game extends Component {
     // }
 
 
-    //     updateBoard(x,y) {
+        updateBoard(newBoard) {
+            let board = this.state.board;
             
-    //         this.sendMove(x,y);
-
-    //         console.log("new board: " + this.state.updateBoard);
-
-    //         var new_board = this.state.updateBoard;
-
-    //         // update board
-    //         // eg. json board: [[' ','-','b'],['-','w','-'],['-','-','-']]
-    //         for (let i = 0; i < new_board.length; i++) {
-    //             for (let j = 0; j < new_board.length; j++) {
-    //                 if (new_board[i][j] === 'b') {
-    //                     new_board[i][j] = {
-    //                         disk: 'black'
-    //                     }
-    //                 } else if (new_board[j][i] === 'w') {
-    //                     new_board[i][j] = {
-    //                         disk: 'white'
-    //                     }
-    //                 } else {
-    //                     new_board[i][j] = {
-    //                         disk: null
-    //                     }
-    //                 }
-    //             }
-    //         return new_board;
-    //     }
-    // }
+            for(let x = 0; x < newBoard.length;x++) {
+                for (let y = 0; y < newBoard[x].length; y++) {
+                    if (newBoard[x][y] === 'b') {
+                        board[x][y].disk = 'black';
+                    }
+                    else if (newBoard[x][y] === 'w') {
+                        board[x][y].disk = 'white';
+                    }
+                    else {
+                        board[x][y].disk = null;
+                    }
+                }
+            }
+            return board;
+    }
 
         
         canReverse(x, y) {
@@ -247,7 +253,11 @@ class Game extends Component {
                 do {
                     X+= dir[0];
                     Y+= dir[1];
+                cells.push({X,Y});    
                     cells.push({X,Y});    
+                cells.push({X,Y});    
+                    cells.push({X,Y});    
+                cells.push({X,Y});    
                     distance++;
                 } while (this.inBoard(X,Y) && this.hasOpponentsColor(X,Y));
                 
@@ -280,7 +290,7 @@ class Game extends Component {
 
             // this.sendMove(x,y);
             // var b = this.state.updateBoard;
-            // TODO: cannot update board yetm only can read user click and send to server
+            // TODO: cannot update board yet only can read user click and send to server
             var b = this.state.board;
             
             if (!b[x][y].canReverse || !b[x][y].canReverse.length) return;
@@ -292,31 +302,12 @@ class Game extends Component {
                 board:b,
                 newestDisk:[x,y]
             },()=>{
-                this.setState((prevState)=>{
-                    return {
-                        currentPlayer: prevState.currentPlayer==='white'?'black':'white',
-                    }
-                }, ()=>{
-                    var allowedCellsCount = this.calculateAllowedCells();
+                // send the PUT request to update server board, also get the updated board from server
+                this.sendMove(x,y);
 
-                    if (!allowedCellsCount) { // PLAYER HAS NO MOVE,GAME OVER
-                        this.props.end(this.winner(), this.score('white'), this.score('black'));
-                    
-                        // this.setState((prevState)=>{
-                        //     return {
-                        //         currentPlayer: prevState.currentPlayer==='white'?'black':'white',
-                        //     }
-                        // }, () => {
-                        //     allowedCellsCount = this.calculateAllowedCells();
-                        //     if (!allowedCellsCount) { // BOTH PLAYERS HAVE NO MOVES: GAME OVER
-                        //         this.props.end(this.winner(), this.score('white'), this.score('black'));
-                        //     }
-                        // });
-                    }
+            })
 
-                })
 
-            });
             
             
         }

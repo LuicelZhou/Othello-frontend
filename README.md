@@ -10,7 +10,7 @@ See demo at https://luicelzhou.github.io/Othello-frontend
 
 ## Setup
 
-- Make sure you have isntalled NodeJS(npm) on your device.
+- Make sure you have installed NodeJS(npm) on your device.
 
 - Install dependencies: `npm install`
 

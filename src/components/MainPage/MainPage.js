@@ -46,7 +46,7 @@ class MainPage extends Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ "message": "greedy" })
+            body: JSON.stringify({ "message": "minimax" })
         })
         .then(res => res.text())
         .then((data) => {

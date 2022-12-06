@@ -25,6 +25,7 @@ class Game extends Component {
             winner:null,
             lostTurn: false,
             newestDisk:null,
+            serverResponse: false
         }
         
     }
@@ -32,20 +33,20 @@ class Game extends Component {
     componentDidMount() {
         this.calculateAllowedCells();
     }
-
-    componentDidUpdate(_, prevState) {
-        if (prevState.board !== this.state.board) {
-            // check if the game is over
-            var allowedCellsCount = this.calculateAllowedCells();
-
-            if (!allowedCellsCount) { // PLAYER HAS NO MOVE,GAME OVER
+    
+    componentDidUpdate() {
+        // console.log("componentDidUpdate " + this.state.serverResponse);
+        if (this.state.serverResponse) {
+            this.setState({ serverResponse: false });
+        
+            let allowedCellsCount = this.calculateAllowedCells();
+            if (!allowedCellsCount) { // OPPONENT HAS NO MOVE, GAME OVER
                 this.props.end(this.winner(), this.score('white'), this.score('black'));
-            }
+            } 
+
         }
-
     }
-
-
+    
     
     
     render() {
@@ -168,8 +169,8 @@ class Game extends Component {
                 throw new Error('Request failed!');
             })
             .then(data => {
-                // console.log(data.board);
-                this.setState({ board: this.updateBoard(data.board), updateBoardByServer: true });;
+                // console.log(this.updateBoard(data.board));
+                this.setState({ board: this.updateBoard(data.board), serverResponse: true, currentPlayer: (data.is_black_turn ? 'black' : 'white')  });;
             })
             .catch((error) => {
                 // console.error('Error:', error);
@@ -177,6 +178,18 @@ class Game extends Component {
             }
             );
 
+        }
+
+        updateLegalMoves(legalMoves) {
+            // convert a legalState of array of array to array of (x, y) coordinates
+            let result = [];
+            legalMoves.forEach((legalMove) => {
+                legalMove.forEach((element) => {
+                    y, x = element[0], element[1];
+                    result.push({x, y});
+                });
+            });
+            return result;
         }
 
         // handleChange(data) {
@@ -215,6 +228,7 @@ class Game extends Component {
 
 
         updateBoard(newBoard) {
+            this.calculateAllowedCells();
             let board = this.state.board;
             
             for(let x = 0; x < newBoard.length;x++) {
@@ -296,12 +310,21 @@ class Game extends Component {
 
             this.setState({
                 board:b,
-                newestDisk:[x,y]
-            },()=>{
-                // send the PUT request to update server board, also get the updated board from server
-                this.sendMove(x,y);
+                newestDisk:[x,y],
+                
+            }, () => {
+                // update canReverse and check if game is over
+                var allowedCellsCount = this.calculateAllowedCells();
 
-            })
+                if (!allowedCellsCount) { // PLAYER HAS NO MOVE,GAME OVER
+                    this.props.end(this.winner(), this.score('white'), this.score('black'));
+                } else {
+                    // call server and update board
+                    this.sendMove(x, y);
+                }
+
+
+            });
 
 
             

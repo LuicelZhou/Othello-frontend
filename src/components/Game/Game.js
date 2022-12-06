@@ -25,6 +25,8 @@ class Game extends Component {
             winner:null,
             lostTurn: false,
             newestDisk:null,
+            legalMoves:[],
+            isNewGame:true
         }
         
     }
@@ -34,17 +36,24 @@ class Game extends Component {
     }
 
     componentDidUpdate(_, prevState) {
-        if (prevState.board !== this.state.board) {
+
+        // console.log(prevState.board===this.state.board);
+        // console.log(prevState.legalMoves);
+        // console.log(this.state.legalMoves);
+
+
+        if (prevState.legalMoves !== this.state.legalMoves) {
+            console.log("componentDidUpdate - update")
             // check if the game is over
-            var allowedCellsCount = this.calculateAllowedCells();
+            var allowedCellsCount = this.calculateAllowedCells(this.state.legalMoves);
 
             if (!allowedCellsCount) { // PLAYER HAS NO MOVE,GAME OVER
                 this.props.end(this.winner(), this.score('white'), this.score('black'));
             }
+        
         }
 
     }
-
 
     
     
@@ -94,20 +103,73 @@ class Game extends Component {
             return score;
         }
         
-        calculateAllowedCells() {
+        calculateAllowedCellsInitial(){
+
+            console.log("executing calculateAllowedCellsInitial");
+            console.log("is new game: " + this.state.isNewGame);
+
+            if(this.state.isNewGame){
+
+            var b = this.state.board;
+            var allowedCellsCount = 0;
+            var canReverse;
+
+            
+             for (let x=0; x<8;x++) {
+                    for (let y=0; y<8; y++) {
+                        canReverse = this.canReverse(x, y);         
+                        b[x][y].canReverse = canReverse; 
+                        
+                        if (canReverse.length) allowedCellsCount++;
+                    }
+                }
+
+
+            this.setState({
+                board:b
+            })
+        
+            return allowedCellsCount;
+        }
+        }
+
+        calculateAllowedCells(legal_moves) {
+
+            console.log("executing calculateAllowedCells");
+            console.log("legal moves" + this.state.legalMoves);
             
             var b = this.state.board;
             var allowedCellsCount = 0;
             var canReverse;
-            
-            for (let x=0; x<8;x++) {
-                for (let y=0; y<8; y++) {
-                    canReverse = this.canReverse(x, y);         
-                    b[x][y].canReverse = canReverse; 
-                    
-                    if (canReverse.length) allowedCellsCount++;
+
+            if(this.state.isNewGame){
+                for (let x=0; x<8;x++) {
+                    for (let y=0; y<8; y++) {
+                        canReverse = this.canReverse(x, y);         
+                        b[x][y].canReverse = canReverse; 
+                        
+                        if (canReverse.length) allowedCellsCount++;
+                    }
                 }
             }
+            else{
+
+                // set canReverse to be all [] in board
+                for (let x=0; x<8;x++) {
+                    for (let y=0; y<8; y++) {
+                        b[x][y].canReverse = [];
+                    }
+                }
+            
+                legal_moves.forEach(move => {
+                    console.log("move: " + move);
+                    canReverse = this.canReverse(move[0], move[1]);         
+                    b[move[0]][move[1]].canReverse = canReverse; 
+                    if (canReverse.length) allowedCellsCount++;
+                });
+            }
+
+            
             
                 this.setState({
                     board:b
@@ -136,11 +198,12 @@ class Game extends Component {
             
             return board;
         }
-        
+
         /** set initial disks black: white at 4,4;5,5; white at 4,5; 5,4; */
         initialDisk(x, y) {
             if ((x===4 && y===4) || (x===5 && y===5)) return 'white';
             if ((x===4 && y===5) || (x===5 && y===4)) return 'black';
+
             return null;
         }
 
@@ -169,11 +232,11 @@ class Game extends Component {
             })
             .then(data => {
                 // console.log(data.board);
-                this.setState({ board: this.updateBoard(data.board), updateBoardByServer: true });;
+                this.setState({ board: this.updateBoard(data.board), updateBoardByServer: true,legalMoves:data.legal_state,isNewGame:false });;
             })
             .catch((error) => {
-                // console.error('Error:', error);
-                window.alert("Error: " + error);
+                console.error('Error:', error);
+                // window.alert("Error: " + error);
             }
             );
 

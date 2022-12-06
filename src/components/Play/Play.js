@@ -17,12 +17,15 @@ class Play extends Component {
       status:'active',
       winner:null, 
       whiteScore:0,
-      blackScore:0
+      blackScore:0,
+      newGameId: Math.floor(Math.random() * 1000000)
     }
   }
   
   render() {
-    let game = this.state.status==='active'?<Game end={this.endGame.bind(this)} gameId={this.props.gameId}/>:''; 
+    let game = this.state.status==='active'?<Game end={this.endGame.bind(this)} gameId={this.props.gameId}/>:'';
+    let restartGame = this.state.status==='restart'?<Game end={this.endGame.bind(this)} gameId={this.state.newGameId}/>:'';
+
     // let game = this.state.status==='active'?<Game end={this.endGame.bind(this)} gameId={this.props.gameId}/>:''; 
     let gameOver = this.state.status==='over'?<GameOver 
     winner={this.state.winner} 
@@ -48,6 +51,7 @@ class Play extends Component {
       <Container style={{ marginTop: '4em' }}>
 
       {game}
+      {restartGame}
       {gameOver}
       </Container>
        <Header as='h1' style={{fontSize: '25px',marginTop:'2em',marginBottom:'1em'}}> 
@@ -58,10 +62,27 @@ class Play extends Component {
   }
   
   restartGame() {
+    this.initialGame(this.state.newGameId);
     this.setState({
-      status:'active',
+      status:'restart',
     })
   }
+
+  initialGame(gameId) {
+
+    fetch('/game/'+ gameId, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ "message": "minimax" })
+    })
+    .then(res => res.text())
+    .then((data) => {
+        console.log("game create success" + data);
+    })
+    .catch(console.log)
+}
   
   endGame(winner, whiteScore, blackScore) {
     this.setState({

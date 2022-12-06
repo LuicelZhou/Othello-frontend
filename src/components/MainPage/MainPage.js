@@ -25,8 +25,7 @@ class MainPage extends Component {
             open: false,
             secondOpen: false,
             // random gameid
-            // gameId: Math.floor(Math.random() * 1000000)
-            gameId: 102
+            gameId: Math.floor(Math.random() * 1000000)
         }
         
     }

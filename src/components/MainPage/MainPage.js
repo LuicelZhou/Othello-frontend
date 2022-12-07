@@ -21,11 +21,11 @@ class MainPage extends Component {
         super(props);
         
         this.state = {
-            // agent: 'simple',
             open: false,
             secondOpen: false,
             // random gameid
-            gameId: Math.floor(Math.random() * 1000000)
+            gameId: Math.floor(Math.random() * 1000000),
+            agent: new URLSearchParams(window.location.search).get('agent'),
         }
         
     }
@@ -45,7 +45,7 @@ class MainPage extends Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ "message": "minimax" })
+            body: JSON.stringify({ "message": this.state.agent }) 
         })
         .then(res => res.text())
         .then((data) => {
@@ -77,7 +77,7 @@ class MainPage extends Component {
              <br/>
             {/* Game settings using Modal */}
             {/* Put the settings in the same page to handle changes and transfer infomation. eg. gameID */}
-            <Button onClick={() => this.setState({ open: 'true' })} primary>Game Settings</Button>
+            {/* <Button onClick={() => this.setState({ open: 'true' })} primary>Game Settings</Button> */}
             <Modal
                 onClose={() => this.setState({ open: false })}
                 onOpen={() => this.setState({ open: true })}
@@ -101,11 +101,12 @@ class MainPage extends Component {
                     Proceed <Icon name='right chevron' />
                 </Button>
                 </Modal.Actions>
-
+                
                 <Modal
-                onClose={() => this.setState({ secondOpen: false })}
-                open={this.state.secondOpen}
-                size='small'
+                onClose={() => this.setState({ open: false })}
+                onOpen={() => this.setState({ open: true })}
+                open={this.state.open}
+                size={'small'}
                 >
           <Modal.Header>Layout Settings</Modal.Header>
             <Modal.Content>

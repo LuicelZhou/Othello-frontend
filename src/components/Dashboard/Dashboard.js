@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import {
   Button,
   Container,
+  Grid,
   Header,
   Icon,
   Menu,
@@ -19,41 +20,14 @@ const { MediaContextProvider, Media } = createMedia({
   },
 })
 
-const HomepageHeading = () => (
-    <Container text>
-    <Header
-      as='h1'
-      content='Welcome to Othello'
-      inverted
-      style={{
-        fontSize:  '4em',
-        fontWeight: 'normal',
-        marginBottom: 0,
-        marginTop: '3em',
-      }}
-    />
-    <Header
-      as='h2'
-      content='A game of strategy'
-      inverted
-      style={{
-        fontSize:  '1.7em',
-        fontWeight: 'normal',
-        marginTop:  '1.5em',
-      }}
-    />
-    <br/>
-    <Link to="/game">
-    <Button primary size='huge'>
-      Let's Play
-      <Icon name='right arrow' />
-    </Button>
-    </Link>
-  </Container>
-)
-
 class DesktopContainer extends Component {
-  state = {}
+  // state = {}
+    constructor(props) {
+        super(props);
+        this.state = {
+            agent: null,
+        };
+    }
 
   hideFixedMenu = () => this.setState({ fixed: false })
   showFixedMenu = () => this.setState({ fixed: true })
@@ -94,12 +68,64 @@ class DesktopContainer extends Component {
                 </Link> */}
               </Container>
             </Menu>
-            <HomepageHeading style={{marginBottom:'10px'}} />
+            {/* <HomepageHeading style={{marginBottom:'10px'}} data={this.state} /> */}
+            <Container text>
+    <Header
+      as='h1'
+      content='Welcome to Othello'
+      inverted
+      style={{
+        fontSize:  '4em',
+        fontWeight: 'normal',
+        marginBottom: 0,
+        marginTop: '3em',
+      }}
+    />
+    <Header
+      as='h2'
+      content='A game of strategy'
+      inverted
+      style={{
+        fontSize:  '1.7em',
+        fontWeight: 'normal',
+        marginTop:  '1.5em',
+      }}
+    />
+    <br/>
+    
+    {/* add three buttons with different difficulty levels */}
+    <Grid centered divided='vertically'>
+          <Grid.Row columns={3}>
+    <Button basic color='teal' onClick={() => this.setState({ agent: 'random' })}>Simple</Button>
+    <Button basic color='blue' onClick={() => this.setState({ agent: 'greedy' })}>Intermediate</Button>
+    <Button basic color='violet' onClick={() => this.setState({ agent: 'minimax' })}>Hard</Button>
+    </Grid.Row>
+    <Grid.Row columns={2}>
+
+
+      {/* when button is clicked, go to game page with query param being agent */}
+
+    <Button disabled={this.state.agent?false:true} marginTop='100px'  primary size='huge' as={Link} 
+                                    to={{ pathname: '/game', search: `?agent=${this.state.agent}` }}> 
+          Let's Play
+          <Icon name='right arrow' />
+    </Button>
+
+    </Grid.Row>
+    </Grid>
+
+{/* create a button on different row with spacing */}
+
+      
+    
+  </Container>
           </Segment>
         </Visibility>
 
         {children}
       </Media>
+
+      
     )
   }
 }

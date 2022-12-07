@@ -26,7 +26,7 @@ class Game extends Component {
             lostTurn: false,
             newestDisk:null,
             legalMoves:[],
-            isNewGame:true
+            isNewGame:true,
         }
         
     }
@@ -232,7 +232,7 @@ class Game extends Component {
             })
             .then(data => {
                 // console.log(data.board);
-                this.setState({ board: this.updateBoard(data.board), updateBoardByServer: true,legalMoves:data.legal_state,isNewGame:false });;
+                this.setState({ board: this.updateBoard(data.board), updateBoardByServer: true,legalMoves:data.legal_state,isNewGame:false, currentPlayer: (data.is_black_turn? 'black': 'white') });;
             })
             .catch((error) => {
                 console.error('Error:', error);

@@ -40,12 +40,16 @@ Othello_frontend
     ├── Disk
     ├── Game
     ├── GameOver
+    ├── MainPage
     ├── Play
     ├── Rules
+    ├── Score
     └── Settings
   ├── App.css
   ├── App.js
   ├── index.css
-  └── index.js
+  ├── index.js
+  └── README.md
+  
 
 ```

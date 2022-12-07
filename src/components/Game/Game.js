@@ -27,6 +27,7 @@ class Game extends Component {
             newestDisk:null,
             legalMoves:[],
             isNewGame:true,
+            aiNewestDisk:null
         }
         
     }
@@ -40,6 +41,8 @@ class Game extends Component {
         // console.log(prevState.board===this.state.board);
         // console.log(prevState.legalMoves);
         // console.log(this.state.legalMoves);
+
+        console.log("ai choose: " + this.state.aiNewestDisk)
 
 
         if (prevState.legalMoves !== this.state.legalMoves) {
@@ -61,7 +64,7 @@ class Game extends Component {
                 
         return (
             <div className="Game container">
-                    <h3 className="Game--title" style={{color:'black'}}>{this.state.currentPlayer}'s turn</h3>
+                    <h3 className="Game--title" style={{color:'black',marginBottom:'-0.2em'}}>{this.state.currentPlayer}'s turn</h3>
                     {this.lostTurn()}  
                 <div className="header">
                     <Score player="black" score={this.score('black')}/>  
@@ -69,7 +72,7 @@ class Game extends Component {
                 </div> 
                 <div className="center">
                 {/* bind reverse function to Board */}
-                <Board board={this.state.board} newest={this.state.newestDisk} reverse={this.reverse.bind(this)} player={this.state.currentPlayer}/>
+                <Board board={this.state.board} newest={this.state.newestDisk} ainewest={this.state.aiNewestDisk} reverse={this.reverse.bind(this)} player={this.state.currentPlayer}/>
                 </div>
             </div>);
         }
@@ -162,7 +165,7 @@ class Game extends Component {
                 }
             
                 legal_moves.forEach(move => {
-                    console.log("move: " + move);
+                    // console.log("move: " + move);
                     canReverse = this.canReverse(move[0], move[1]);         
                     b[move[0]][move[1]].canReverse = canReverse; 
                     if (canReverse.length) allowedCellsCount++;
@@ -232,7 +235,7 @@ class Game extends Component {
             })
             .then(data => {
                 // console.log(data.board);
-                this.setState({ board: this.updateBoard(data.board), updateBoardByServer: true,legalMoves:data.legal_state,isNewGame:false, currentPlayer: (data.is_black_turn? 'black': 'white') });;
+                this.setState({ board: this.updateBoard(data.board), updateBoardByServer: true,legalMoves:data.legal_state,isNewGame:false, currentPlayer: (data.is_black_turn? 'black': 'white'), aiNewestDisk: data.ai_move });;
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -241,41 +244,6 @@ class Game extends Component {
             );
 
         }
-
-        // handleChange(data) {
-        //     // update the board
-        //     console.log("board in read: " + data.board);
-            
-        //     let new_board = data.board;
-
-        //     // update board
-        //     // eg. json board: [[' ','-','b'],['-','w','-'],['-','-','-']]
-        //     for (let i = 0; i < new_board.length; i++) {
-        //         for (let j = 0; j < new_board.length; j++) {
-        //             if (new_board[i][j] === 'b') {
-        //                 new_board[i][j] = {
-        //                     disk: 'black'
-        //                 }
-        //             } else if (new_board[i][j] === 'w') {
-        //                 new_board[i][j] = {
-        //                     disk: 'white'
-        //                 }
-        //             } else {
-        //                 new_board[i][j] = {
-        //                     disk: null
-        //                 }
-        //             }
-        //         }
-        // }   
-
-    //     this.setState({
-    //         updateBoard: new_board,
-    //         currentPlayer: data.is_black_turn ? 'black' : 'white',
-    //         status: data.status
-
-    //     });
-    // }
-
 
         updateBoard(newBoard) {
             let board = this.state.board;

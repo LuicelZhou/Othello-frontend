@@ -18,6 +18,11 @@
 .Cell--newest .Disk {
     border:2px solid yellow;
 }
+
+.Cell--ainewest .Disk {
+    border:2px solid red;
+}
+
 .Cell--allowed .Disk {
     border: 1px solid #ffffff;
     cursor:pointer !important;

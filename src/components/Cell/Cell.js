@@ -29,7 +29,11 @@ class Cell extends Component {
     }
 
     isNewest() {
-      return this.props.newest && this.props.newest[0] === this.props.position[0] && this.props.newest[1] === this.props.position[1];  
+      return this.props.newest && this.props.newest[0] === this.props.position[0] && this.props.newest[1] === this.props.position[1]
+    }
+
+    isAiNewest() {
+        return this.props.ainewest && this.props.ainewest[0] === this.props.position[0] && this.props.ainewest[1] === this.props.position[1];
     }
 
     classes() {
@@ -38,6 +42,7 @@ class Cell extends Component {
         cls+= cell.disk?'Cell--occupied':'Cell--vacant';
         if (cell.canReverse.length) cls+=' Cell--allowed';
         if (this.isNewest()) cls+=' Cell--newest';
+        if (this.isAiNewest()) cls+=' Cell--ainewest';
 
         return cls;
     }

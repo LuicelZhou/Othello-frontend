@@ -32,7 +32,7 @@ class Play extends Component {
     black={this.state.blackScore}
     />:'';  
     // random: easy, greedy: intermediate, minimax: hard
-    let agent = this.props.typee==='random'?'Easy':this.props.typee==='greedy'?'Intermediate':'Hard';
+    let agent = this.props.type==='random'?'Easy':this.props.type==='greedy'?'Intermediate':'Hard';
     console.log(this.props.gameId);
 
     return (

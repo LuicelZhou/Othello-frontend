@@ -72,7 +72,7 @@ class DesktopContainer extends Component {
             <Container text>
     <Header
       as='h1'
-      content='Welcome to Othello'
+      content='Welcome to Othello!'
       inverted
       style={{
         fontSize:  '4em',
@@ -83,16 +83,15 @@ class DesktopContainer extends Component {
     />
     <Header
       as='h2'
-      content='A game of strategy'
+      content='Please select a difficulty level to start playing:'
       inverted
       style={{
-        fontSize:  '1.7em',
+        fontSize:  '1.4em',
         fontWeight: 'normal',
         marginTop:  '1.5em',
       }}
     />
-    <br/>
-    
+ 
     {/* add three buttons with different difficulty levels */}
     <Grid centered divided='vertically'>
           <Grid.Row columns={3}>

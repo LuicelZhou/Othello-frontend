@@ -18,22 +18,21 @@ class Play extends Component {
       winner:null, 
       whiteScore:0,
       blackScore:0,
-      newGameId: Math.floor(Math.random() * 1000000)
+      newGameId: Math.floor(Math.random() * 1000)
     }
   }
   
   render() {
     let game = this.state.status==='active'?<Game end={this.endGame.bind(this)} gameId={this.props.gameId}/>:'';
     let restartGame = this.state.status==='restart'?<Game end={this.endGame.bind(this)} gameId={this.state.newGameId}/>:'';
-
-    // let game = this.state.status==='active'?<Game end={this.endGame.bind(this)} gameId={this.props.gameId}/>:''; 
     let gameOver = this.state.status==='over'?<GameOver 
     winner={this.state.winner} 
     restart={this.restartGame.bind(this)}
     white={this.state.whiteScore}    
     black={this.state.blackScore}
     />:'';  
-    let agent = this.props.type;
+    // random: easy, greedy: intermediate, minimax: hard
+    let agent = this.props.typee==='random'?'Easy':this.props.typee==='greedy'?'Intermediate':'Hard';
     console.log(this.props.gameId);
 
     return (
@@ -50,11 +49,20 @@ class Play extends Component {
       </Menu>
       <Container style={{ marginTop: '4em' }}>
 
+      <h1 style={{ color: 'black' , fontSize:'30px',marginTop:'-1.3em',marginBottom:'0.1em'}}  >
+             Let's play Othello! 
+      </h1>
+      {/* black: yellow, white(ai): red */}
+      <h3 >
+            Black newest position is <span style={{color:'yellow',background:'grey' }}>yellow</span>, White(AI) newest position is <span style={{color:'red'}}>red</span>
+       </h3>
+
+
       {game}
       {restartGame}
       {gameOver}
       </Container>
-       <Header as='h1' style={{fontSize: '25px',marginTop:'2em',marginBottom:'1em'}}> 
+       <Header  style={{fontSize: '20px',marginTop:'0.4em',marginBottom:'1.5em'}}> 
        Difficulty level: {agent}
        </Header>
       </div>

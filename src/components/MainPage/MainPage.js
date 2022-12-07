@@ -24,7 +24,7 @@ class MainPage extends Component {
             open: false,
             secondOpen: false,
             // random gameid
-            gameId: Math.floor(Math.random() * 1000000),
+            gameId: Math.floor(Math.random() * 1000),
             agent: new URLSearchParams(window.location.search).get('agent'),
         }
         
@@ -72,13 +72,10 @@ class MainPage extends Component {
             <br/>
             <br/>
             
-            <h1 style={{ color: 'black' , fontSize:'30px'}}  >
-             Welcome to Othello! </h1>
-             <br/>
             {/* Game settings using Modal */}
             {/* Put the settings in the same page to handle changes and transfer infomation. eg. gameID */}
             {/* <Button onClick={() => this.setState({ open: 'true' })} primary>Game Settings</Button> */}
-            <Modal
+            {/* <Modal
                 onClose={() => this.setState({ open: false })}
                 onOpen={() => this.setState({ open: true })}
                 open={this.state.open}
@@ -139,7 +136,7 @@ class MainPage extends Component {
                     />
             </Modal.Actions>
             </Modal>
-            </Modal>
+            </Modal> */}
 
             <Play type={this.state.agent} gameId = {this.state.gameId}/>
             

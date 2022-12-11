@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter,Routes, Route } from "react-router-dom";
 import Dashboard from './components/Dashboard/Dashboard';
 import Rules from './components/Rules/Rules';
-import Settings from './components/Settings/Settings';
 import MainPage from './components/MainPage/MainPage';
 import './App.css';
 
@@ -19,7 +18,6 @@ class App extends Component {
         <Route path="/" element={<Dashboard />} />
         <Route path="/game" element={<MainPage />} />
         <Route path="/rules" element={<Rules />} />
-        {/* <Route path="/settings" element={<Settings />} /> */}
       </Routes>
       </BrowserRouter>
 

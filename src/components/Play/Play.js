@@ -4,7 +4,8 @@ import 'semantic-ui-css/semantic.min.css'
 import {
   Container,
   Menu,
-  Header
+  Header,
+  Button
 } from 'semantic-ui-react'
 import Game from '../Game/Game';
 import GameOver from '../GameOver/GameOver';
@@ -34,6 +35,9 @@ class Play extends Component {
     // random: easy, greedy: intermediate, minimax: hard
     let agent = this.props.type==='random'?'Easy':this.props.type==='greedy'?'Intermediate':'Hard';
     console.log(this.props.gameId);
+    function refreshPage() {
+      window.location.reload(false);
+    }
 
     return (
      <div>
@@ -62,8 +66,13 @@ class Play extends Component {
       {restartGame}
       {gameOver}
       </Container>
+      <Button style={{marginBottom:'0.3em'}} onClick={refreshPage}>
+        Restart
+        </Button>
        <Header  style={{fontSize: '20px',marginTop:'0.4em',marginBottom:'1.5em'}}> 
        Difficulty level: {agent}
+       <br/>
+       
        </Header>
       </div>
     );

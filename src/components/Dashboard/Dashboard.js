@@ -26,6 +26,8 @@ class DesktopContainer extends Component {
         super(props);
         this.state = {
             agent: null,
+            isAi: null,
+            levelSelect:null
         };
     }
 
@@ -35,6 +37,34 @@ class DesktopContainer extends Component {
   render() {
     const { children } = this.props
     const { fixed } = this.state
+    console.log('agent '+this.state.agent);
+    console.log('Is ai ' + this.state.isAi);
+    console.log('level select ' + this.state.levelSelect);
+    let chooseLevel = this.state.isAi==='ai'?(<div>
+      {/* add three buttons with different difficulty levels */}
+
+      <Header
+      as='h2'
+      content='Please select a difficulty level to start playing:'
+      inverted
+      style={{
+        fontSize:  '1.4em',
+        fontWeight: 'normal',
+        marginTop:  '1.2em',
+      }}
+    />
+    
+    <Grid centered divided='vertically'>
+          <Grid.Row columns={3}>
+    <Button basic color='teal' onClick={() => this.setState({ agent: 'random',levelSelect:true })}>Simple</Button>
+    <Button basic color='blue' onClick={() => this.setState({ agent: 'greedy',levelSelect:true })}>Intermediate</Button>
+    <Button basic color='violet' onClick={() => this.setState({ agent: 'minimax',levelSelect:true })}>Hard</Button>
+    </Grid.Row>
+    <Grid.Row columns={2}>
+    </Grid.Row>
+    </Grid>
+    <br/>
+    </div>):'';
 
     return (
       <Media greaterThan='mobile'>
@@ -63,12 +93,8 @@ class DesktopContainer extends Component {
                 <Link to="/rules">
                 <Menu.Item as='a'>Rules</Menu.Item>
                 </Link>
-                {/* <Link to="/settings">
-                <Menu.Item as='a'>Settings</Menu.Item>
-                </Link> */}
               </Container>
             </Menu>
-            {/* <HomepageHeading style={{marginBottom:'10px'}} data={this.state} /> */}
             <Container text>
     <Header
       as='h1'
@@ -81,9 +107,10 @@ class DesktopContainer extends Component {
         marginTop: '3em',
       }}
     />
+
     <Header
       as='h2'
-      content='Please select a difficulty level to start playing:'
+      content='Please select game mode:'
       inverted
       style={{
         fontSize:  '1.4em',
@@ -91,31 +118,26 @@ class DesktopContainer extends Component {
         marginTop:  '1.5em',
       }}
     />
- 
-    {/* add three buttons with different difficulty levels */}
-    <Grid centered divided='vertically'>
-          <Grid.Row columns={3}>
-    <Button basic color='teal' onClick={() => this.setState({ agent: 'random' })}>Simple</Button>
-    <Button basic color='blue' onClick={() => this.setState({ agent: 'greedy' })}>Intermediate</Button>
-    <Button basic color='violet' onClick={() => this.setState({ agent: 'minimax' })}>Hard</Button>
+
+    {/* add a menu to choose play with ai or locally */}
+    <Grid centered divided='vertically' style={{marginBottom:'1em'}}>
+          <Grid.Row columns={2}>
+    <Button basic color='teal' onClick={() => this.setState({ isAi:'local',levelSelect:true })}>Play Locally</Button>
+    <Button basic color='blue' onClick={() => this.setState({ isAi:'ai',levelSelect:null })}>Play with AI</Button>
     </Grid.Row>
-    <Grid.Row columns={2}>
+    </Grid>
 
+    {chooseLevel}
 
-      {/* when button is clicked, go to game page with query param being agent */}
+      {/* when button is clicked, go to game page with query param being agent or playing locally without agent */}
 
-    <Button disabled={this.state.agent?false:true} marginTop='100px'  primary size='huge' as={Link} 
-                                    to={{ pathname: '/game', search: `?agent=${this.state.agent}` }}> 
+    <Button disabled={(this.state.agent===null && this.state.levelSelect===null)} marginTop='100px'  primary size='huge' as={Link} 
+                                    to={{ pathname: '/game', search: `?agent=${this.state.agent}&mode=${this.state.isAi}` }}> 
           Let's Play
           <Icon name='right arrow' />
     </Button>
 
-    </Grid.Row>
-    </Grid>
-
 {/* create a button on different row with spacing */}
-
-      
     
   </Container>
           </Segment>

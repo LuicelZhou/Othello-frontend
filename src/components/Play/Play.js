@@ -5,7 +5,7 @@ import {
   Container,
   Menu,
   Header,
-  Button
+  Button,
 } from 'semantic-ui-react'
 import Game from '../Game/Game';
 import GameOver from '../GameOver/GameOver';
@@ -51,6 +51,7 @@ class Play extends Component {
           </Link>
         </Container>
       </Menu>
+
       <Container style={{ marginTop: '4em' }}>
 
       <h1 style={{ color: 'black' , fontSize:'30px',marginTop:'-1.3em',marginBottom:'0.1em'}}  >

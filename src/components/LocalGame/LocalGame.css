@@ -1,0 +1,13 @@
+.LocalGame--title {
+    padding: 10px;
+}
+
+.LocalGame--title:first-letter  {
+    text-transform:capitalize;
+}
+
+.LoclGame .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

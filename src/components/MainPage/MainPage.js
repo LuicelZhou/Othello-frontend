@@ -3,16 +3,10 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import {
     Container,
-    Button,
-    Modal,
     Menu,
-    Icon, 
-    Header,
-    Divider,
-    Dropdown, 
-    Grid,
   } from 'semantic-ui-react'
-  import Play from '../Play/Play';
+import Play from '../Play/Play';
+import LocalPlay from '../LocalPlay/LocalPlay';
 
 
 class MainPage extends Component {
@@ -26,6 +20,7 @@ class MainPage extends Component {
             // random gameid
             gameId: Math.floor(Math.random() * 1000),
             agent: new URLSearchParams(window.location.search).get('agent'),
+            gameMode: new URLSearchParams(window.location.search).get('mode'),
         }
         
     }
@@ -40,22 +35,30 @@ class MainPage extends Component {
 
     initialGame() {
 
-        fetch('/game/'+ this.state.gameId, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ "message": this.state.agent }) 
-        })
-        .then(res => res.text())
-        .then((data) => {
-            console.log("game create success" + data);
-        })
-        .catch(console.log)
+        if (this.state.gameMode === 'ai') {
+
+            fetch('/game/'+ this.state.gameId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "message": this.state.agent }) 
+            })
+            .then(res => res.text())
+            .then((data) => {
+                console.log("game create success" + data);
+            })
+            .catch(console.log)
+        }
     }
 
 
     render() {
+
+        console.log(this.state.gameMode);
+
+        let playAi = this.state.gameMode === 'ai'?<Play type={this.state.agent} gameId = {this.state.gameId}/>:'';
+        let playLocal = this.state.gameMode === 'local'?<LocalPlay />:'';
         
         return (
             <div>
@@ -71,74 +74,10 @@ class MainPage extends Component {
                 </Menu>
             <br/>
             <br/>
-            
-            {/* Game settings using Modal */}
-            {/* Put the settings in the same page to handle changes and transfer infomation. eg. gameID */}
-            {/* <Button onClick={() => this.setState({ open: 'true' })} primary>Game Settings</Button> */}
-            {/* <Modal
-                onClose={() => this.setState({ open: false })}
-                onOpen={() => this.setState({ open: true })}
-                open={this.state.open}
-                size={'small'}
-                >
 
-                <Modal.Header>Please choose a difficulty level (default: Simple)</Modal.Header>
-                <Modal.Content>
-                <Modal.Description>
-                    <p>
-                    <Button onClick={() => this.setState({ agent: 'Simple' })}>Simple</Button>
-                    <Button onClick={() => this.setState({ agent: 'Intermediate' })}>Intermediate</Button>
-                    <Button onClick={() => this.setState({ agent: 'Hard' })}>Hard</Button>
-                    </p>
-                </Modal.Description>
-                </Modal.Content>
-                <Modal.Actions>
-    
-                    <Button onClick={() => this.setState({ secondOpen: true })} primary>
-                    Proceed <Icon name='right chevron' />
-                </Button>
-                </Modal.Actions>
-                
-                <Modal
-                onClose={() => this.setState({ open: false })}
-                onOpen={() => this.setState({ open: true })}
-                open={this.state.open}
-                size={'small'}
-                >
-          <Modal.Header>Layout Settings</Modal.Header>
-            <Modal.Content>
-            <Header as='h2'>Please choose a Board Theme (default: trditional)</Header>
-                <Modal.Description>
-                    <Grid>
-                    <Grid.Row>
-                        <Grid.Column>
-                            <Divider />
-                            <Dropdown
-                            options={[
-                                { key: 'Traditoional', value: 'Traditoional', text: 'Traditoional',icon: 'circle'},
-                                { key: 'Fire and Water', value: 'Fire and Water', text: 'Fire and Water',icon: 'fire'},
-                            ]}
-                            placeholder='Traditoional'
-                            selection
-                            />
-                        </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
-                </Modal.Description>
-            </Modal.Content>
-            <Modal.Actions>
-                <Button
-                    content="All done, let's go!"
-                    labelPosition='right'
-                    icon='checkmark'
-                    onClick={() => this.setState({ secondOpen: false,open: false })}
-                    positive
-                    />
-            </Modal.Actions>
-            </Modal>
-            </Modal> */}
+            {playAi}
+            {playLocal}
 
-            <Play type={this.state.agent} gameId = {this.state.gameId}/>
             
             </div>
         );

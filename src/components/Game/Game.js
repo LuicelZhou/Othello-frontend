@@ -38,24 +38,14 @@ class Game extends Component {
 
     componentDidUpdate(_, prevState) {
 
-        // console.log(prevState.board===this.state.board);
-        // console.log(prevState.legalMoves);
-        // console.log(this.state.legalMoves);
-
-        console.log("ai choose: " + this.state.aiNewestDisk)
-
-
         if (prevState.legalMoves !== this.state.legalMoves) {
-            console.log("componentDidUpdate - update")
             // check if the game is over
             var allowedCellsCount = this.calculateAllowedCells(this.state.legalMoves);
 
             if (!allowedCellsCount) { // PLAYER HAS NO MOVE,GAME OVER
                 this.props.end(this.winner(), this.score('white'), this.score('black'));
             }
-        
         }
-
     }
 
     
@@ -108,9 +98,6 @@ class Game extends Component {
         
         calculateAllowedCellsInitial(){
 
-            console.log("executing calculateAllowedCellsInitial");
-            console.log("is new game: " + this.state.isNewGame);
-
             if(this.state.isNewGame){
 
             var b = this.state.board;
@@ -137,9 +124,6 @@ class Game extends Component {
         }
 
         calculateAllowedCells(legal_moves) {
-
-            console.log("executing calculateAllowedCells");
-            console.log("legal moves" + this.state.legalMoves);
             
             var b = this.state.board;
             var allowedCellsCount = 0;
@@ -234,12 +218,10 @@ class Game extends Component {
                 throw new Error('Request failed!');
             })
             .then(data => {
-                // console.log(data.board);
                 this.setState({ board: this.updateBoard(data.board), updateBoardByServer: true,legalMoves:data.legal_state,isNewGame:false, currentPlayer: (data.is_black_turn? 'black': 'white'), aiNewestDisk: data.ai_move });;
             })
             .catch((error) => {
                 console.error('Error:', error);
-                // window.alert("Error: " + error);
             }
             );
 

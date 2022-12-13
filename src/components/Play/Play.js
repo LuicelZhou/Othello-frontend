@@ -20,7 +20,7 @@ class Play extends Component {
       winner:null, 
       whiteScore:0,
       blackScore:0,
-      newGameId: Math.floor(Math.random() * 1000)
+      newGameId: null
     }
   }
   
@@ -34,7 +34,7 @@ class Play extends Component {
     black={this.state.blackScore}
     gameId={this.props.gameId}
     />:'';  
-    let restartButton = this.state.status==='active'?<div><Button style={{marginBottom:'0.3em'}} onClick={refreshPage}>
+    let restartButton = this.state.status!='over'?<div><Button primary style={{marginBottom:'0.3em'}} onClick={refreshPage}>
     Restart
     </Button>
     </div>:'';
@@ -84,9 +84,11 @@ class Play extends Component {
   }
   
   restartGame() {
-    this.initialGame(this.state.newGameId);
+    let newid = Math.floor(Math.random() * 1000);
+    this.initialGame(newid);
     this.setState({
       status:'restart',
+      newGameId: newid
     })
   }
 

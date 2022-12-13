@@ -9,6 +9,7 @@ import {
 } from 'semantic-ui-react'
 import Game from '../Game/Game';
 import GameOver from '../GameOver/GameOver';
+import ModalExampleScrollingContent from '../../HistoryData/ShowModal.js'
 
 class Play extends Component {
 
@@ -31,6 +32,7 @@ class Play extends Component {
     restart={this.restartGame.bind(this)}
     white={this.state.whiteScore}    
     black={this.state.blackScore}
+    gameId={this.props.gameId}
     />:'';  
     // random: easy, greedy: intermediate, minimax: hard
     let agent = this.props.type==='random'?'Easy':this.props.type==='greedy'?'Intermediate':'Hard';
@@ -61,8 +63,6 @@ class Play extends Component {
       <h3 >
             Black newest position is <span style={{color:'yellow',background:'grey' }}>yellow</span>, White(AI) newest position is <span style={{color:'red'}}>red</span>
        </h3>
-
-
       {game}
       {restartGame}
       {gameOver}
@@ -70,6 +70,8 @@ class Play extends Component {
       <Button style={{marginBottom:'0.3em'}} onClick={refreshPage}>
         Restart
         </Button>
+      {ModalExampleScrollingContent}
+      
        <Header  style={{fontSize: '20px',marginTop:'0.4em',marginBottom:'1.5em'}}> 
        Difficulty level: {agent}
        <br/>

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './GameOver.css';
+// import showmodal from current working directory
+import ModalExampleScrollingContent  from '../../HistoryData/ShowModal';
 
 class GameOver extends Component {
     
@@ -8,8 +10,8 @@ class GameOver extends Component {
             <h3>{this.gameOverText()}</h3>
             <p>White Score: <b>{this.props.white}</b></p>
             <p>Black Score: <b>{this.props.black}</b></p>
-                
             <button className="btn btn-primary" onClick={this.props.restart}>Play Again</button>
+            <ModalExampleScrollingContent gameId={this.props.gameId} />
         </div>)
     }
 

@@ -35,6 +35,7 @@ const ModalExampleScrollingContent = (props) => {
       open={open}
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
+      style={{top:'1em'}}
       trigger={<Button>View History</Button>}
     >
       <Modal.Header>Game History</Modal.Header>

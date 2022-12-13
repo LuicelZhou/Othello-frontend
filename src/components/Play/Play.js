@@ -34,6 +34,10 @@ class Play extends Component {
     black={this.state.blackScore}
     gameId={this.props.gameId}
     />:'';  
+    let restartButton = this.state.status==='active'?<div><Button style={{marginBottom:'0.3em'}} onClick={refreshPage}>
+    Restart
+    </Button>
+    </div>:'';
     // random: easy, greedy: intermediate, minimax: hard
     let agent = this.props.type==='random'?'Easy':this.props.type==='greedy'?'Intermediate':'Hard';
     console.log(this.props.gameId);
@@ -67,9 +71,7 @@ class Play extends Component {
       {restartGame}
       {gameOver}
       </Container>
-      <Button style={{marginBottom:'0.3em'}} onClick={refreshPage}>
-        Restart
-        </Button>
+      {restartButton}
       {ModalExampleScrollingContent}
       
        <Header  style={{fontSize: '20px',marginTop:'0.4em',marginBottom:'1.5em'}}> 

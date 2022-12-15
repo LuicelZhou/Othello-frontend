@@ -59,7 +59,7 @@ const ModalExampleScrollingContent = (props) => {
                                     <tr>
                                         <td>{data.round}</td>
                                         <td>{data.player}</td>
-                                        <td>({data.move[0]}, {data.move[1]})</td>
+                                        {data.move[0] === 10 && data.move[1] === 10? <td>No Move</td> : <td>({data.move[0]}, {data.move[1]})</td>}
                                     </tr>
                                 )
                           })}

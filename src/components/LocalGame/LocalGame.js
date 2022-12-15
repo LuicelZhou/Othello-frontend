@@ -174,11 +174,11 @@ class LocalGame extends Component {
         }
 
         reverse(x, y) { 
-
+            
             var b = this.state.board;
-
+            
             if (!b[x][y].canReverse || !b[x][y].canReverse.length) return;
-
+            
             b[x][y].disk = this.state.currentPlayer;
             b[x][y].canReverse.forEach(cell=>b[cell.X][cell.Y].disk = this.state.currentPlayer);
 
@@ -193,15 +193,25 @@ class LocalGame extends Component {
                 }, ()=>{
                     var allowedCellsCount = this.calculateAllowedCells();
 
-                    if (!allowedCellsCount) { // PLAYER HAS NO MOVE,GAME OVER
-                        this.props.end(this.winner(), this.score('white'), this.score('black'));
+                    if (!allowedCellsCount) { // PLAYER HAS NO MOVES
+                        
+                        this.setState((prevState)=>{
+                            return {
+                                currentPlayer: prevState.currentPlayer==='white'?'black':'white',
+                            }
+                        }, () => {
+                            allowedCellsCount = this.calculateAllowedCells();
+                            if (!allowedCellsCount) { // BOTH PLAYERS HAVE NO MOVES: GAME OVER
+                                this.props.end(this.winner(), this.score('white'), this.score('black'));
+                            }
+                        });
                     }
 
                 })
 
             });
-
-
+            
+            
         }
 
         getCurrentPlayer() {

@@ -9,6 +9,7 @@ import ModalExampleScrollingContent  from '../../HistoryData/ShowModal';
 class GameOver extends Component {
     
     render() {
+        let history = this.props.type!='local'?<ModalExampleScrollingContent gameId={this.props.gameId} /> : '';
         return (<div className="GameOver">
             <h3>{this.gameOverText()}</h3>
             <p>White Score: <b>{this.props.white}</b></p>
@@ -16,7 +17,8 @@ class GameOver extends Component {
             <Button primary onClick={this.props.restart}>Play Again</Button>
             <br/>
             <br/>
-            <ModalExampleScrollingContent gameId={this.props.gameId} />
+            {history}
+            
         </div>)
     }
 

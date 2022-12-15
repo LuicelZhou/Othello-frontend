@@ -29,7 +29,12 @@ class LocalPlay extends Component {
     restart={this.restartGame.bind(this)}
     white={this.state.whiteScore}    
     black={this.state.blackScore}
+    type={this.props.type}
     />:'';  
+    let restartButton = this.state.status!='over'?<div><Button primary style={{marginBottom:'0.3em'}} onClick={refreshPage}>
+    Restart
+    </Button>
+    </div>:'';
     function refreshPage() {
         window.location.reload(false);
       }
@@ -53,9 +58,7 @@ class LocalPlay extends Component {
       {game}
       {gameOver}
 
-      <Button style={{marginBottom:'0.3em',marginTop:'1em'}} onClick={refreshPage}>
-        Restart
-     </Button>
+      {restartButton}
 
       </div>
     </div>

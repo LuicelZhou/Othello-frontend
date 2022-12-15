@@ -58,7 +58,7 @@ class MainPage extends Component {
         console.log(this.state.gameMode);
 
         let playAi = this.state.gameMode === 'ai'?<Play type={this.state.agent} gameId = {this.state.gameId}/>:'';
-        let playLocal = this.state.gameMode === 'local'?<LocalPlay />:'';
+        let playLocal = this.state.gameMode === 'local'?<LocalPlay type={this.state.gameMode} />:'';
         
         return (
             <div>

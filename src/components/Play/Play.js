@@ -20,7 +20,7 @@ class Play extends Component {
       winner:null, 
       whiteScore:0,
       blackScore:0,
-      newGameId: null
+      newGameId: this.props.gameId
     }
   }
   
@@ -32,7 +32,8 @@ class Play extends Component {
     restart={this.restartGame.bind(this)}
     white={this.state.whiteScore}    
     black={this.state.blackScore}
-    gameId={this.props.gameId}
+    gameId={this.state.newGameId}
+    type={this.props.type}
     />:'';  
     let restartButton = this.state.status!='over'?<div><Button primary style={{marginBottom:'0.3em'}} onClick={refreshPage}>
     Restart

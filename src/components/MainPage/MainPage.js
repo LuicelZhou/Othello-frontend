@@ -46,7 +46,7 @@ class MainPage extends Component {
             })
             .then(res => res.text())
             .then((data) => {
-                console.log("game create success" + data);
+                console.log("game create success!" );
             })
             .catch(console.log)
         }
@@ -55,7 +55,6 @@ class MainPage extends Component {
 
     render() {
 
-        console.log(this.state.gameMode);
 
         let playAi = this.state.gameMode === 'ai'?<Play type={this.state.agent} gameId = {this.state.gameId}/>:'';
         let playLocal = this.state.gameMode === 'local'?<LocalPlay type={this.state.gameMode} />:'';

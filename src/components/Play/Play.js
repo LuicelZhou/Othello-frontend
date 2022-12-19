@@ -41,7 +41,6 @@ class Play extends Component {
     </div>:'';
     // random: easy, greedy: intermediate, minimax: hard
     let agent = this.props.type==='random'?'Easy':this.props.type==='greedy'?'Intermediate':'Hard';
-    console.log(this.props.gameId);
     function refreshPage() {
       window.location.reload(false);
     }
@@ -104,7 +103,7 @@ class Play extends Component {
     })
     .then(res => res.text())
     .then((data) => {
-        console.log("game create success" + data);
+        console.log("game create success!");
     })
     .catch(console.log)
 }

@@ -149,7 +149,6 @@ class Game extends Component {
                 }
             
                 legal_moves.forEach(move => {
-                    // console.log("move: " + move);
                     canReverse = this.canReverse(move[0], move[1]);         
                     b[move[0]][move[1]].canReverse = canReverse; 
                     if (canReverse.length) allowedCellsCount++;
@@ -203,7 +202,6 @@ class Game extends Component {
             // api: http://localhost:8080/game/:gameid put
             // response: 200 OK
             // only send when player moves - in Cell.js -> Onclick
-            console.log("executing sendMove");
             fetch( '/game/' + this.props.gameId, {
                 method: 'PUT',
                 headers: {

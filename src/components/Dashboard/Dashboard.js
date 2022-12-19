@@ -21,7 +21,7 @@ const { MediaContextProvider, Media } = createMedia({
 })
 
 class DesktopContainer extends Component {
-  // state = {}
+
     constructor(props) {
         super(props);
         this.state = {
@@ -37,9 +37,6 @@ class DesktopContainer extends Component {
   render() {
     const { children } = this.props
     const { fixed } = this.state
-    console.log('agent '+this.state.agent);
-    console.log('Is ai ' + this.state.isAi);
-    console.log('level select ' + this.state.levelSelect);
     let chooseLevel = this.state.isAi==='ai'?(<div>
       {/* add three buttons with different difficulty levels */}
 
